@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFC Hotel &amp; Restaurant — Golbazar, Siraha</title>
+<meta name="description" content="AFC Hotel & Restaurant, Golbazar-4 Siraha. Authentic Nepali cuisine, comfortable rooms, online ordering, table & room booking.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f1216'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23d4af37' font-family='Georgia'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span>📍 <b id="tb-address"></b></span>
+    <span class="topbar-right">
+      <a id="tb-phone" href="#"></a>
+      <a id="tb-email" href="#"></a>
+      <span id="tb-hours" class="hide-sm"></span>
+    </span>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#home" class="brand">
+      <span class="brand-mark">A</span>
+      <span class="brand-text"><b id="brand-name">AFC Hotel</b><small>Hotel &amp; Restaurant</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#booking">Booking</a>
+      <a href="#track">Track Order</a>
+      <a href="#contact">Contact</a>
+      <a href="admin.html" class="nav-admin">Admin</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+        🛍️ <span>Order</span> <b class="cart-count" id="cartCount">0</b>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="wrap hero-in">
+    <p class="hero-kicker reveal">Golbazar · Siraha · Nepal</p>
+    <h1 class="hero-title reveal" id="heroTitle"></h1>
+    <p class="hero-sub reveal" id="heroSubtitle"></p>
+    <div class="hero-cta reveal">
+      <a href="#menu" class="btn btn-gold">Explore Menu</a>
+      <a href="#booking" class="btn btn-ghost">Book a Stay</a>
+    </div>
+    <div class="hero-note reveal" id="heroNotice"></div>
+  </div>
+  <a class="hero-scroll" href="#about">⌄</a>
+</section>
+
+<!-- ===== HIGHLIGHTS ===== -->
+<section class="highlights">
+  <div class="wrap hl-grid">
+    <div class="hl reveal"><span class="hl-ic">🍛</span><h3>Authentic Cuisine</h3><p>200+ Nepali &amp; continental dishes made fresh daily</p></div>
+    <div class="hl reveal"><span class="hl-ic">🛏️</span><h3>Comfortable Stays</h3><p>Clean, cozy rooms in the heart of Golbazar bazaar</p></div>
+    <div class="hl reveal"><span class="hl-ic">🛵</span><h3>Fast Delivery</h3><p>Hot food delivered to your doorstep around town</p></div>
+    <div class="hl reveal"><span class="hl-ic">🥂</span><h3>Bar &amp; Lounge</h3><p>Premium spirits, wines, beer &amp; hookah lounge</p></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-media reveal">
+      <img src="assets/about.jpg" alt="AFC Hotel restaurant interior" loading="lazy">
+      <img src="assets/food.jpg" alt="Nepali food feast at AFC" class="about-media-2" loading="lazy">
+    </div>
+    <div class="about-text reveal">
+      <p class="sec-kicker">Our Story</p>
+      <h2 class="sec-title">A taste of home, <em>served with love</em></h2>
+      <p id="aboutText"></p>
+      <div class="about-stats">
+        <div><b>246+</b><span>Menu Items</span></div>
+        <div><b>8+</b><span>Cuisines &amp; Bars</span></div>
+        <div><b>100%</b><span>Fresh Daily</span></div>
+      </div>
+      <a href="#menu" class="btn btn-dark">See Full Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MENU ===== -->
+<section class="menu-sec" id="menu">
+  <div class="wrap">
+    <p class="sec-kicker center">Food &amp; Drinks</p>
+    <h2 class="sec-title center">Our <em>Menu</em></h2>
+    <p class="sec-sub center">All prices in NPR · Order online for delivery, takeaway or dine-in</p>
+
+    <div class="menu-toolbar" id="menuToolbar">
+      <div class="menu-groups" id="menuGroups"></div>
+      <div class="menu-filters">
+        <input type="search" id="menuSearch" placeholder="🔍 Search dishes…" class="menu-search">
+        <label class="veg-toggle"><input type="checkbox" id="vegOnly"><span class="vt-track"><span class="vt-dot"></span></span> Veg only</label>
+      </div>
+    </div>
+
+    <div id="menuList" class="menu-list"></div>
+  </div>
+</section>
+
+<!-- ===== ROOMS + BOOKING ===== -->
+<section class="booking-sec" id="booking">
+  <div class="wrap">
+    <p class="sec-kicker center light">Reservations</p>
+    <h2 class="sec-title center light">Book Your <em>Experience</em></h2>
+    <p class="sec-sub center light">Reserve a room for the night or a table for dinner — we’ll confirm by phone.</p>
+
+    <div class="booking-tabs">
+      <button class="bk-tab active" data-tab="room">🛏️ Room Booking</button>
+      <button class="bk-tab" data-tab="table">🍽️ Table Reservation</button>
+    </div>
+
+    <div class="booking-panels">
+      <!-- ROOMS -->
+      <div class="bk-panel active" id="panel-room">
+        <div class="room-grid" id="roomGrid"></div>
+        <form class="bk-form" id="roomForm">
+          <h3>Room details</h3>
+          <div class="form-row">
+            <label>Room type<select id="bf-room" required></select></label>
+            <label>Guests<input type="number" id="bf-guests" min="1" max="10" value="2" required></label>
+          </div>
+          <div class="form-row">
+            <label>Check-in<input type="date" id="bf-checkin" required></label>
+            <label>Check-out<input type="date" id="bf-checkout" required></label>
+          </div>
+          <div class="form-row">
+            <label>Full name<input type="text" id="bf-name" placeholder="Your name" required></label>
+            <label>Phone<input type="tel" id="bf-phone" placeholder="98XXXXXXXX" required></label>
+          </div>
+          <label>Note (optional)<input type="text" id="bf-note" placeholder="Any special request…"></label>
+          <div class="bk-summary" id="roomSummary"></div>
+          <button class="btn btn-gold btn-block" type="submit">Request Room Booking</button>
+        </form>
+      </div>
+
+      <!-- TABLE -->
+      <div class="bk-panel" id="panel-table">
+        <form class="bk-form" id="tableForm">
+          <h3>Table details</h3>
+          <div class="form-row">
+            <label>Date<input type="date" id="tf-date" required></label>
+            <label>Time<input type="time" id="tf-time" required></label>
+          </div>
+          <div class="form-row">
+            <label>Guests<input type="number" id="tf-guests" min="1" max="40" value="4" required></label>
+            <label>Phone<input type="tel" id="tf-phone" placeholder="98XXXXXXXX" required></label>
+          </div>
+          <label>Full name<input type="text" id="tf-name" placeholder="Your name" required></label>
+          <label>Occasion / note (optional)<input type="text" id="tf-note" placeholder="Birthday, meeting…"></label>
+          <button class="btn btn-gold btn-block" type="submit">Reserve Table</button>
+        </form>
+        <div class="bk-info">
+          <h3>Why dine with us?</h3>
+          <ul>
+            <li>✔ Spacious family-friendly dining hall</li>
+            <li>✔ Private cabin for groups &amp; meetings</li>
+            <li>✔ Live tandoor &amp; sekuwa counter</li>
+            <li>✔ Bar &amp; hookah lounge upstairs</li>
+          </ul>
+          <img src="assets/food.jpg" alt="AFC dishes" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRACK ORDER ===== -->
+<section class="track-sec" id="track">
+  <div class="wrap track-wrap">
+    <p class="sec-kicker center">Live Status</p>
+    <h2 class="sec-title center">Track Your <em>Order</em></h2>
+    <p class="sec-sub center">Enter your order ID — status updates in real time as our kitchen works.</p>
+    <div class="track-box">
+      <input type="text" id="trackInput" placeholder="e.g. AFC-1A2B3" autocomplete="off">
+      <button class="btn btn-dark" id="trackBtn">Track</button>
+    </div>
+    <div class="track-recent" id="trackRecent"></div>
+    <div class="track-result" id="trackResult"></div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact-sec" id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <p class="sec-kicker">Find Us</p>
+      <h2 class="sec-title">Visit <em id="ctName">AFC Hotel</em></h2>
+      <div class="contact-cards">
+        <a class="cc" id="cc-address" target="_blank" rel="noopener"><span>📍</span><div><b>Address</b><p id="c-address"></p></div></a>
+        <a class="cc" id="cc-phone"><span>📞</span><div><b>Phone</b><p id="c-phone"></p></div></a>
+        <a class="cc" id="cc-email"><span>✉️</span><div><b>Email</b><p id="c-email"></p></div></a>
+        <a class="cc" id="cc-fb" target="_blank" rel="noopener"><span>👍</span><div><b>Facebook</b><p>facebook.com/afchotel</p></div></a>
+        <div class="cc"><span>🕒</span><div><b>Opening Hours</b><p id="c-hours"></p></div></div>
+      </div>
+    </div>
+    <div class="contact-img reveal">
+      <img src="assets/room.jpg" alt="Deluxe room at AFC Hotel" loading="lazy">
+      <div class="contact-img-badge">“<span id="ctTagline"></span>”</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand footer-brand"><span class="brand-mark">A</span><span class="brand-text"><b id="f-name">AFC Hotel</b><small>Hotel &amp; Restaurant</small></span></div>
+      <p id="f-tagline" class="footer-tag"></p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#menu">Menu</a><a href="#booking">Booking</a><a href="#track">Track Order</a><a href="admin.html">Admin Login</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p id="f-address"></p><p id="f-phone"></p><p id="f-email"></p>
+    </div>
+  </div>
+  <div class="footer-bar"><span id="f-copy"></span></div>
+</footer>
+
+<!-- ===== CART DRAWER ===== -->
+<div class="drawer-veil" id="drawerVeil"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cd-head">
+    <h3>Your Order</h3>
+    <button class="cd-close" id="cartClose">✕</button>
+  </div>
+  <div class="cd-body" id="cartBody"></div>
+  <div class="cd-foot" id="cartFoot"></div>
+</aside>
+
+<!-- ===== CHECKOUT MODAL ===== -->
+<div class="modal-veil" id="checkoutVeil">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" data-close="checkoutVeil">✕</button>
+    <h3 class="modal-title">Checkout</h3>
+    <form id="checkoutForm">
+      <div class="otype" id="otypeRow">
+        <label><input type="radio" name="otype" value="delivery" checked><span>🛵 Delivery</span></label>
+        <label><input type="radio" name="otype" value="pickup"><span>🥡 Takeaway</span></label>
+        <label><input type="radio" name="otype" value="dinein"><span>🍽️ Dine-in</span></label>
+      </div>
+      <div class="form-row">
+        <label>Full name<input type="text" id="co-name" required placeholder="Your name"></label>
+        <label>Phone<input type="tel" id="co-phone" required placeholder="98XXXXXXXX"></label>
+      </div>
+      <label id="co-address-wrap">Delivery address<textarea id="co-address" rows="2" placeholder="Ward no., street, landmark…"></textarea></label>
+      <label id="co-table-wrap" class="hidden">Table number<input type="text" id="co-table" placeholder="e.g. T-4"></label>
+      <label>Note (optional)<input type="text" id="co-note" placeholder="Less spicy, no onion…"></label>
+      <div class="pay-box">
+        <b>Payment</b>
+        <label class="pay-opt"><input type="radio" name="pay" value="cod" checked> Cash on delivery / pay at counter</label>
+        <label class="pay-opt"><input type="radio" name="pay" value="wallet"> Khalti / eSewa (pay on arrival)</label>
+      </div>
+      <div class="co-total" id="coTotal"></div>
+      <button class="btn btn-gold btn-block" type="submit">Place Order</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== SUCCESS MODAL ===== -->
+<div class="modal-veil" id="successVeil">
+  <div class="modal modal-success" role="dialog" aria-modal="true">
+    <div class="success-tick">✓</div>
+    <h3 id="successTitle">Order placed!</h3>
+    <p id="successText"></p>
+    <div class="success-id" id="successId"></div>
+    <div class="success-actions" id="successActions"></div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

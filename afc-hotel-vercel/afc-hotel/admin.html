@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFC Hotel — Admin Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f1216'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23d4af37' font-family='Georgia'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand"><span class="brand-mark">A</span></div>
+    <h1>AFC Hotel <span>Admin</span></h1>
+    <p class="login-sub">Sign in to manage your hotel &amp; restaurant</p>
+    <form id="loginForm">
+      <label>Username<input type="text" id="loginUser" autocomplete="username" placeholder="admin" required></label>
+      <label>Password<input type="password" id="loginPass" autocomplete="current-password" placeholder="••••••••" required></label>
+      <div class="login-error" id="loginError">⚠ Invalid username or password</div>
+      <button class="abtn abtn-gold abtn-block" type="submit">Sign In →</button>
+    </form>
+    <p class="login-hint">Default: <b>admin</b> / <b>afc@123</b> — change it in Settings</p>
+    <a class="login-back" href="index.html">← Back to website</a>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div class="dash" id="dash" hidden>
+  <!-- sidebar -->
+  <aside class="side">
+    <div class="side-brand">
+      <span class="brand-mark">A</span>
+      <div><b id="sideHotel">AFC Hotel</b><small>Admin Panel</small></div>
+    </div>
+    <nav class="side-nav" id="sideNav">
+      <a data-view="overview" class="active"><span>📊</span> Overview</a>
+      <a data-view="orders"><span>🧾</span> Live Orders <b class="side-badge" id="navOrderBadge" hidden></b></a>
+      <a data-view="bookings"><span>📅</span> Bookings <b class="side-badge blue" id="navBookingBadge" hidden></b></a>
+      <a data-view="menu"><span>🍽️</span> Menu Manager</a>
+      <a data-view="rooms"><span>🛏️</span> Rooms</a>
+      <a data-view="settings"><span>⚙️</span> Settings</a>
+    </nav>
+    <div class="side-foot">
+      <a href="index.html" target="_blank" class="side-site">🌐 View Website</a>
+      <button class="side-logout" id="logoutBtn">⏻ Logout</button>
+    </div>
+  </aside>
+
+  <!-- main -->
+  <main class="main">
+    <header class="main-top">
+      <div>
+        <h2 id="viewTitle">Overview</h2>
+        <p class="main-date" id="mainDate"></p>
+      </div>
+      <div class="main-top-right">
+        <span class="live-pill"><i></i> LIVE SYNC</span>
+        <button class="hamb" id="sideToggle">☰</button>
+        <div class="avatar" title="Administrator">A</div>
+      </div>
+    </header>
+
+    <!-- ======= OVERVIEW ======= -->
+    <section class="view active" id="view-overview">
+      <div class="stat-grid">
+        <div class="stat gold"><span class="stat-ic">💰</span><div><small>Revenue Today</small><b id="stRevenue">Rs. 0</b></div></div>
+        <div class="stat"><span class="stat-ic">🧾</span><div><small>Orders Today</small><b id="stOrders">0</b></div></div>
+        <div class="stat orange"><span class="stat-ic">⏳</span><div><small>Pending Orders</small><b id="stPending">0</b></div></div>
+        <div class="stat blue"><span class="stat-ic">📅</span><div><small>Pending Bookings</small><b id="stBookings">0</b></div></div>
+        <div class="stat green"><span class="stat-ic">🍽️</span><div><small>Menu Items</small><b id="stMenu">0</b></div></div>
+      </div>
+
+      <div class="panel-grid">
+        <div class="panel">
+          <div class="panel-head"><h3>Revenue — last 7 days</h3></div>
+          <canvas id="revChart" height="180"></canvas>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Top selling items</h3></div>
+          <div class="top-items" id="topItems"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Recent orders</h3><button class="abtn abtn-ghost sm" data-goto="orders">View all →</button></div>
+        <div class="table-wrap"><table class="atable" id="recentOrdersTable"></table></div>
+      </div>
+    </section>
+
+    <!-- ======= ORDERS ======= -->
+    <section class="view" id="view-orders">
+      <div class="filter-row" id="orderFilters">
+        <button class="fchip active" data-f="all">All</button>
+        <button class="fchip" data-f="pending">⏳ Pending</button>
+        <button class="fchip" data-f="accepted">✅ Accepted</button>
+        <button class="fchip" data-f="preparing">👨‍🍳 Preparing</button>
+        <button class="fchip" data-f="out">🛵 Out / Ready</button>
+        <button class="fchip" data-f="completed">✔ Completed</button>
+        <button class="fchip" data-f="cancelled">✖ Cancelled</button>
+        <span class="spacer"></span>
+        <button class="abtn abtn-ghost sm danger" id="clearDoneBtn">Clear completed/cancelled</button>
+      </div>
+      <div class="orders-grid" id="ordersGrid"></div>
+    </section>
+
+    <!-- ======= BOOKINGS ======= -->
+    <section class="view" id="view-bookings">
+      <div class="filter-row" id="bookingFilters">
+        <button class="fchip active" data-f="all">All</button>
+        <button class="fchip" data-f="room">🛏️ Rooms</button>
+        <button class="fchip" data-f="table">🍽️ Tables</button>
+        <button class="fchip" data-f="pending">⏳ Pending</button>
+        <button class="fchip" data-f="confirmed">✔ Confirmed</button>
+      </div>
+      <div class="table-wrap panel"><table class="atable" id="bookingsTable"></table></div>
+    </section>
+
+    <!-- ======= MENU MANAGER ======= -->
+    <section class="view" id="view-menu">
+      <div class="menu-mgr-top">
+        <input type="search" id="mgrSearch" placeholder="🔍 Search menu items…">
+        <select id="mgrCat"><option value="all">All categories</option></select>
+        <button class="abtn abtn-gold" id="addItemBtn">+ Add Item</button>
+      </div>
+      <div class="table-wrap panel"><table class="atable" id="menuTable"></table></div>
+    </section>
+
+    <!-- ======= ROOMS ======= -->
+    <section class="view" id="view-rooms">
+      <div class="menu-mgr-top">
+        <p style="color:var(--mut)">Manage room types shown on the booking page.</p>
+        <span class="spacer"></span>
+        <button class="abtn abtn-gold" id="addRoomBtn">+ Add Room</button>
+      </div>
+      <div class="rooms-grid" id="roomsGrid"></div>
+    </section>
+
+    <!-- ======= SETTINGS ======= -->
+    <section class="view" id="view-settings">
+      <div class="settings-grid">
+        <div class="panel">
+          <div class="panel-head"><h3>Hotel information</h3></div>
+          <form id="settingsForm" class="aform">
+            <label>Hotel name<input id="s-hotelName"></label>
+            <label>Tagline<input id="s-tagline"></label>
+            <div class="frow">
+              <label>Phone<input id="s-phone"></label>
+              <label>Email<input id="s-email"></label>
+            </div>
+            <label>Address<input id="s-address"></label>
+            <label>Facebook URL<input id="s-facebook"></label>
+            <label>Opening hours<input id="s-hours"></label>
+            <label>Hero title<input id="s-heroTitle"></label>
+            <label>Hero subtitle<textarea id="s-heroSubtitle" rows="2"></textarea></label>
+            <label>About text<textarea id="s-about" rows="4"></textarea></label>
+            <label>Homepage notice (optional)<input id="s-notice" placeholder="e.g. Free delivery this week!"></label>
+            <div class="frow">
+              <label>Delivery fee (Rs.)<input type="number" id="s-deliveryFee" min="0"></label>
+              <label>Free delivery above (Rs.)<input type="number" id="s-freeDeliveryAbove" min="0"></label>
+            </div>
+            <button class="abtn abtn-gold" type="submit">Save Changes</button>
+          </form>
+        </div>
+
+        <div class="settings-col">
+          <div class="panel">
+            <div class="panel-head"><h3>Admin account</h3></div>
+            <form id="authForm" class="aform">
+              <label>Username<input id="a-username" autocomplete="off"></label>
+              <label>New password<input type="password" id="a-password" placeholder="Leave blank to keep current" autocomplete="new-password"></label>
+              <button class="abtn abtn-dark" type="submit">Update Login</button>
+            </form>
+          </div>
+          <div class="panel danger-zone">
+            <div class="panel-head"><h3>Data tools</h3></div>
+            <div class="aform">
+              <button class="abtn abtn-dark" id="demoBtn">✨ Load demo orders &amp; bookings</button>
+              <button class="abtn abtn-ghost danger" id="resetBtn">↺ Reset entire website data</button>
+              <p class="dz-note">Reset restores the original menu from the PDF and clears all orders, bookings and edits.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ======= ITEM EDITOR MODAL ======= -->
+<div class="amodal-veil" id="itemModal">
+  <div class="amodal">
+    <button class="amodal-close" data-close="itemModal">✕</button>
+    <h3 id="itemModalTitle">Add Menu Item</h3>
+    <form id="itemForm" class="aform">
+      <label>Item name<input id="it-name" required></label>
+      <div class="frow">
+        <label>Category<input id="it-cat" list="catList" required><datalist id="catList"></datalist></label>
+        <label>Menu group<select id="it-group"></select></label>
+      </div>
+      <div class="frow checks">
+        <label class="chk"><input type="checkbox" id="it-veg"> <span>🌱 Vegetarian</span></label>
+        <label class="chk"><input type="checkbox" id="it-popular"> <span>★ Popular</span></label>
+        <label class="chk"><input type="checkbox" id="it-available" checked> <span>✔ Available</span></label>
+      </div>
+      <label>Description (optional)<input id="it-desc"></label>
+      <div class="price-mode">
+        <label class="chk"><input type="radio" name="pmode" value="single" checked> <span>Single price</span></label>
+        <label class="chk"><input type="radio" name="pmode" value="variants"> <span>Variants (size/style)</span></label>
+      </div>
+      <div id="singlePriceWrap"><label>Price (Rs.)<input type="number" id="it-price" min="0"></label></div>
+      <div id="variantsWrap" hidden>
+        <div class="var-head"><span>Variant label</span><span>Price (Rs.)</span><span></span></div>
+        <div id="varRows"></div>
+        <button type="button" class="abtn abtn-ghost sm" id="addVarRow">+ Add variant</button>
+      </div>
+      <button class="abtn abtn-gold abtn-block" type="submit">Save Item</button>
+    </form>
+  </div>
+</div>
+
+<!-- ======= ROOM EDITOR MODAL ======= -->
+<div class="amodal-veil" id="roomModal">
+  <div class="amodal">
+    <button class="amodal-close" data-close="roomModal">✕</button>
+    <h3 id="roomModalTitle">Add Room</h3>
+    <form id="roomFormA" class="aform">
+      <label>Room name<input id="rm-name" required></label>
+      <div class="frow">
+        <label>Price / night (Rs.)<input type="number" id="rm-price" min="0" required></label>
+        <label>Capacity (guests)<input type="number" id="rm-cap" min="1" max="20" value="2" required></label>
+      </div>
+      <label>Description<textarea id="rm-desc" rows="3"></textarea></label>
+      <div class="frow checks">
+        <label class="chk"><input type="checkbox" id="rm-available" checked> <span>✔ Available</span></label>
+        <label class="chk"><input type="checkbox" id="rm-popular"> <span>★ Mark popular</span></label>
+      </div>
+      <button class="abtn abtn-gold abtn-block" type="submit">Save Room</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="js/data.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
